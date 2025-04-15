@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DAA Code Repository</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/atom-one-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/languages/c.min.js"></script>
+</head>
+<body>
+    <header>
+        <h1>DAA Code Repository</h1>
+        <p>View and download code files from Part A and Part B</p>
+    </header>
+
+    <main>
+        <div class="container">
+            <div class="sidebar">
+                <div class="folder-section">
+                    <h2>Part A</h2>
+                    <ul id="part-a-files" class="file-list"></ul>
+                </div>
+                <div class="folder-section">
+                    <h2>Part B</h2>
+                    <ul id="part-b-files" class="file-list"></ul>
+                </div>
+            </div>
+            <div class="content">
+                <div class="code-header">
+                    <h2 id="current-file">Select a file to view</h2>
+                    <button id="download-btn" class="download-btn" disabled>Download</button>
+                </div>
+                <pre><code id="code-display" class="language-c">// Select a file from the sidebar to view its content</code></pre>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>Design & Analysis of Algorithms - Code Repository</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

@@ -173,18 +173,26 @@ header h1 {
     transition: background-color 0.2s;
 }
 
-.download-btn {
+.download-btn, .copy-btn {
     background-color: var(--button-bg);
     color: white;
 }
 
-.download-btn:hover {
+.download-btn:hover, .copy-btn:hover {
     background-color: var(--button-hover);
 }
 
-.download-btn:disabled {
+.download-btn:disabled, .copy-btn:disabled {
     background-color: var(--button-disabled);
     cursor: not-allowed;
+}
+
+.copy-btn {
+    margin-right: 0.5rem;
+}
+
+.copy-success {
+    background-color: #28a745 !important;
 }
 
 #pdf-container {

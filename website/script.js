@@ -34,6 +34,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const pdfViewer = document.getElementById('pdf-viewer');
     const currentFileTitle = document.getElementById('current-file');
     const downloadBtn = document.getElementById('download-btn');
+    const copyBtn = document.getElementById('copy-btn');
     const themeToggleBtn = document.getElementById('theme-toggle-btn');
     const htmlElement = document.documentElement;
 
@@ -94,6 +95,9 @@ document.addEventListener('DOMContentLoaded', function() {
         downloadBtn.onclick = function() {
             window.open('DAAA.pdf', '_blank');
         };
+        
+        // Disable copy button for PDF
+        copyBtn.disabled = true;
     });
 
     // Function to populate file lists
@@ -163,6 +167,37 @@ document.addEventListener('DOMContentLoaded', function() {
         downloadBtn.onclick = function() {
             downloadFile(content, path.split('/').pop());
         };
+        
+        // Enable copy button
+        copyBtn.disabled = false;
+        copyBtn.onclick = function() {
+            copyToClipboard(content);
+        };
+    }
+    
+    // Function to copy code to clipboard
+    function copyToClipboard(text) {
+        navigator.clipboard.writeText(text)
+            .then(() => {
+                // Visual feedback for successful copy
+                copyBtn.classList.add('copy-success');
+                copyBtn.textContent = 'Copied!';
+                
+                // Reset button after 2 seconds
+                setTimeout(() => {
+                    copyBtn.classList.remove('copy-success');
+                    copyBtn.textContent = 'Copy Code';
+                }, 2000);
+            })
+            .catch(err => {
+                console.error('Failed to copy text: ', err);
+                copyBtn.textContent = 'Copy Failed';
+                
+                // Reset button after 2 seconds
+                setTimeout(() => {
+                    copyBtn.textContent = 'Copy Code';
+                }, 2000);
+            });
     }
 
     // Function to download file

@@ -27,13 +27,74 @@ document.addEventListener('DOMContentLoaded', function() {
     // DOM elements
     const partAFilesList = document.getElementById('part-a-files');
     const partBFilesList = document.getElementById('part-b-files');
+    const pdfFile = document.getElementById('pdf-file');
     const codeDisplay = document.getElementById('code-display');
+    const codeContainer = document.getElementById('code-container');
+    const pdfContainer = document.getElementById('pdf-container');
+    const pdfViewer = document.getElementById('pdf-viewer');
     const currentFileTitle = document.getElementById('current-file');
     const downloadBtn = document.getElementById('download-btn');
+    const themeToggleBtn = document.getElementById('theme-toggle-btn');
+    const htmlElement = document.documentElement;
+
+    // Theme management
+    const currentTheme = localStorage.getItem('theme') || 'light';
+    htmlElement.setAttribute('data-theme', currentTheme);
+    updateThemeIcon(currentTheme);
 
     // Populate file lists
     populateFileList(fileStructure['part a'], partAFilesList, 'part a');
     populateFileList(fileStructure['part b'], partBFilesList, 'part b');
+
+    // Theme toggle functionality
+    themeToggleBtn.addEventListener('click', function() {
+        const currentTheme = htmlElement.getAttribute('data-theme');
+        const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+        
+        htmlElement.setAttribute('data-theme', newTheme);
+        localStorage.setItem('theme', newTheme);
+        
+        updateThemeIcon(newTheme);
+        
+        // Re-highlight code if visible
+        if (codeContainer.style.display !== 'none') {
+            hljs.highlightElement(codeDisplay);
+        }
+    });
+
+    function updateThemeIcon(theme) {
+        const icon = themeToggleBtn.querySelector('i');
+        if (theme === 'dark') {
+            icon.className = 'fas fa-sun';
+        } else {
+            icon.className = 'fas fa-moon';
+        }
+    }
+
+    // PDF file click handler
+    pdfFile.addEventListener('click', function() {
+        // Remove active class from all list items
+        document.querySelectorAll('.file-list li').forEach(item => {
+            item.classList.remove('active');
+        });
+        
+        // Add active class to clicked item
+        this.classList.add('active');
+        
+        // Show PDF viewer, hide code display
+        codeContainer.style.display = 'none';
+        pdfContainer.style.display = 'block';
+        
+        // Set the PDF source
+        pdfViewer.src = 'DAAA.pdf';
+        
+        // Update title and enable download button
+        currentFileTitle.textContent = 'DAAA.pdf';
+        downloadBtn.disabled = false;
+        downloadBtn.onclick = function() {
+            window.open('DAAA.pdf', '_blank');
+        };
+    });
 
     // Function to populate file lists
     function populateFileList(files, listElement, folderName) {
@@ -60,6 +121,10 @@ document.addEventListener('DOMContentLoaded', function() {
     // Function to load file content
     function loadFileContent(path) {
         currentFileTitle.textContent = path;
+        
+        // Show code container, hide PDF viewer
+        codeContainer.style.display = 'block';
+        pdfContainer.style.display = 'none';
         
         // Check if file content is cached
         if (fileCache[path]) {

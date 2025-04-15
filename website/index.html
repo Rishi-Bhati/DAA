@@ -1,18 +1,27 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DAA Code Repository</title>
     <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/atom-one-dark.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/atom-one-dark.min.css" id="code-theme-light">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/atom-one-dark.min.css" id="code-theme-dark" disabled>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/languages/c.min.js"></script>
 </head>
 <body>
     <header>
-        <h1>DAA Code Repository</h1>
-        <p>View and download code files from Part A and Part B</p>
+        <div class="header-content">
+            <h1>DAA Code Repository</h1>
+            <p>View and download code files from Part A and Part B</p>
+        </div>
+        <div class="theme-toggle">
+            <button id="theme-toggle-btn" aria-label="Toggle dark mode">
+                <i class="fas fa-moon"></i>
+            </button>
+        </div>
     </header>
 
     <main>
@@ -26,13 +35,26 @@
                     <h2>Part B</h2>
                     <ul id="part-b-files" class="file-list"></ul>
                 </div>
+                <div class="folder-section">
+                    <h2>Documentation</h2>
+                    <ul class="file-list">
+                        <li id="pdf-file" data-type="pdf">DAAA.pdf</li>
+                    </ul>
+                </div>
             </div>
             <div class="content">
                 <div class="code-header">
                     <h2 id="current-file">Select a file to view</h2>
-                    <button id="download-btn" class="download-btn" disabled>Download</button>
+                    <div class="header-buttons">
+                        <button id="download-btn" class="btn download-btn" disabled>Download</button>
+                    </div>
                 </div>
-                <pre><code id="code-display" class="language-c">// Select a file from the sidebar to view its content</code></pre>
+                <div id="code-container">
+                    <pre><code id="code-display" class="language-c">// Select a file from the sidebar to view its content</code></pre>
+                </div>
+                <div id="pdf-container" style="display: none;">
+                    <iframe id="pdf-viewer" width="100%" height="600px" style="border: none;"></iframe>
+                </div>
             </div>
         </div>
     </main>
